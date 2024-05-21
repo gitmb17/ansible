@@ -1,0 +1,15 @@
+---
+
+- hosts: 10.10.10.141
+  become: true
+  tasks:
+
+  - name: REMOVE tmux package 
+    ansible.builtin.dnf:
+      name: tmux
+      state: removed
+      
+  - name: INSTALL tmux package
+    dnf:
+      name: tmux
+      state: installed
