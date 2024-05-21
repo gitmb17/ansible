@@ -8,20 +8,31 @@
     ansible.builtin.dnf:
      update_cache: yes
         
-  - name: REMOVE tmux package 
+  - name: REMOVE tmux, tftp cli package 
     ansible.builtin.dnf:
-      name: tmux
+      name: 
+        - tmux
+        - tftp
+        - syslinux-tftpboot.noarch
       state: removed
     when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
 
-  - name: INSTALL tmux package
+  - name: INSTALL tmux, tftp cli, tftpd package
     dnf:
-      name: tmux
+      name: 
+        - tmux
+        - tftp
+        - tftp-server
+        - syslinux-tftpboot.noarch
       state: installed
     when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
   
-  - name: CHECK for installed tmux package
+  - name: CHECK for installed tmux, tftp cli, tftpd package
     dnf:
-      name: tmux
+      name: 
+        - tmux
+        - tftp
+        - tftp-server
+        - syslinux-tftpboot.noarch
       state: installed
     when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
