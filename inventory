@@ -1,2 +1,12 @@
+[all_centos_8_stream]
 10.10.10.140
 10.10.10.141
+
+[general_centos_8_stream_grp1]
+10.10.10.140
+
+[general_centos_8_stream_grp2]
+10.10.10.141
+
+[windows_desktop]
+10.10.10.36

@@ -1,6 +1,6 @@
 ---
 
-- hosts: general_centos_8_stream_grp2 
+- hosts: 10.10.10.141
   become: true
   tasks:
 
