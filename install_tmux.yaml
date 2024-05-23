@@ -37,6 +37,14 @@
       state: installed
     when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
 
+  - name: start tftpd
+    service:
+      name: tftp
+      state: started
+      enabled: true
+    when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
+
+
   - name: COPY file to /tmp
     tags: CopyFiles
     copy:
@@ -46,3 +54,18 @@
       group: root
       mode: 0644
     when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
+
+  - name: change LINE in file /tmp/_copied_site.html
+    lineinfile:
+      path: /tmp/_copied_site.html
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@my.net
+    when: ansible_distribution_release == "Stream" and ansible_distribution_file_variety == "CentOS" and ansible_distribution_major_version == "8"
+    register: status_copiedsitehtml
+
+
+  - name: restart tftp service when _copied_site.html was changed
+    service:
+      name: tftp
+      state: restarted
+    when: status_copiedsitehtml.changed
